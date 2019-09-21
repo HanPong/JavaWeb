@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+	<!-- 配置bean，bean里需要有一个无参构造器，通过反射生成IOC-->
+	<!-- 依赖注入方法1：最常用的属性注入 -->
+	<bean id="helloWorld" class="com.atguigu.spring.beans.HelloWorld">
+		<property name="name" value="Spring"></property>
+	</bean>
+	<!-- 方法2：通过构造器注入 -->
+	<bean id="car" class="com.atguigu.spring.beans.Car">
+		<constructor-arg value="Audi" index="0"></constructor-arg>
+		<!-- 没有index就按默认顺序,可以用type指定类型，可以混用，区分重载的构造器-->
+		<constructor-arg value="Shnaghai"></constructor-arg>
+		<constructor-arg value="500000" type="double"></constructor-arg>
+		<!-- value可以写成子节点 value 250 /value -->
+	</bean>
+	<!-- 多种Bean的联合使用 -->
+	<bean id="person" class="com.atguigu.spring.beans.Person">
+		<property name="name" value="Tom"></property>
+		<property name="age" value="24"></property>
+		<property name="car" ref="car"></property>
+		<!-- 级联属性 属性要先初始化才能为级联属性赋值，要不然会报异常-->
+		<property name="car.maxSpeed" value="250"></property>
+		<!-- 内部Bean
+		<prperty name="car">
+			<bean>
+				<constructor-arg value="Audi" index="0"></constructor-arg>
+			</bean>
+		</property>
+		 -->
+	</bean>
+	
+	<!-- 测试com.atguigu.spring.beans.collections里的集合属性 -->
+	<bean id="car4" class="com.atguigu.spring.beans.collection.Car">
+		<constructor-arg value="Audi" index="0"></constructor-arg>	
+		<constructor-arg value="Shnaghai"></constructor-arg>
+		<constructor-arg value="500000" type="double"></constructor-arg>
+	</bean>
+    <bean id="Person3" class="com.atguigu.spring.beans.collection.Person">
+    	<property name="name" value="Mike"></property>
+		<property name="age" value="28"></property>
+		<property name="cars">
+			<list>
+				<ref bean="car4"/>
+			</list>
+		</property>
+    </bean>	
+    
+    <!-- 配置Map属性值 -->
+    <bean id="newPerson" class="com.atguigu.spring.beans.collection.NewPerson">
+     	<property name="name" value="Rose"></property>
+     	<property name="age" value="28"></property>
+     	<property name="cars">
+     	<map>
+     		<entry key="AA" value-ref="car4"></entry>
+     	</map>
+     	</property>
+    </bean> 
+    
+    <!-- 前面的List，Map都是内部的，外部无法引用，不能重复使用
+    	配置单例的集合Bean，方便多个Bean进行引用-->
+    <util:list id="cars">
+    <ref bean="car4"/>
+    </util:list>
+	
+
+</beans>

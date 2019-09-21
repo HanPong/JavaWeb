@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+	<!-- 旧方法，当代码较多时不便于维护
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	<property name="user" value="root"></property>
+	<property name="password" value="HANPENG-1998"></property>
+	<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+	<property name="jdbcUrl" value="jdbc:mysql://localhost:3306"></property> 
+	</bean>-->
+	<!-- 导入属性文件db.properties -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	<property name="user" value="${user}"></property>
+	<property name="password" value="${password}"></property>
+	<property name="driverClass" value="${driverclass}"></property>
+	<property name="jdbcUrl" value="${jdbcurl}"></property> 
+	</bean>
+</beans>

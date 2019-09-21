@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+	<!-- 配置bean 
+		class:bean的全类名，通过反射的方式在IOC容器中创建Bean，所以要求Bean有无参的构造器
+		id:标识容器中的Bean是唯一的
+	-->
+	<bean id="helloWorld" class="com.atguigu.spring.beans.HelloWorld">
+	<!-- 通过setter方法属性注入 -->
+		<property name="name" value="Spring"></property>
+	</bean>
+	
+</beans>

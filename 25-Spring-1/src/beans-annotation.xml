@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+	<!-- 指定springIOC容器扫描的包 -->
+	<context:component-scan base-package="com.atguigu.spring.beans.annotation">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>	
+	</context:component-scan>
+	<!-- resource-pattern="repository/*.class"   把这个加到scan里实现过滤，只扫描这个子包下的类-->
+	<!-- context:exclude-filter 子节点指定排除哪些表达式的组件，后面的expression接其import后面的语句 -->
+	<!-- context:include-filter子节点指定包含哪些表达式的组件，该子节点需要use-default-filter配合使用 -->
+    <!-- context:include-filter type="assignable"和这个功能相同，但是后面的expression需要接类名，而不是import后面的语句 -->
+</beans>
