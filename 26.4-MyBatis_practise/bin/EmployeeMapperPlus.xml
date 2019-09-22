@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.atguigu.mybatis.dao.EmployeeMapperPlus">
+ <!-- 自定义某个javabean的封装规则，type：自定义的java类，id：唯一id引用 -->
+ <resultMap type="com.atguigu.mybatis.bean.Employee" id="MyEmp">
+ 	<id column="id" property="id"/><!-- 指定主键列的封装规则，column：指定哪一列，property：指定的java的属性 -->
+ 	<!-- 定义普通列封装规则，其他不指定的列会自动封装，但建议把全部的映射规则写上-->
+ 	<result column="last_name" property="lastName"/>
+ 	
+ </resultMap>
+ 		
+ 	<select id="getEmpById" resultMap="MyEmp">
+ 		select * from tbl_employee where id=#{id}
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	<resultMap type="com.atguigu.mybatis.bean.Employee" id="MyDifEmp">
+ 	<id column="id" property="id"/>
+ 	<result column="last_name" property="lastName"/>
+ 	<result column="d_id" property="dept.id"/>
+ 	<result column="dept_name" property="dept.departmentName"/><!-- 联合查询属性可用级联属性封装 -->
+ 	
+ 	</resultMap>
+ 	 <!-- 场景一： 每个员工对应一个部门,查询Employee的同时查询员工对应的部门,这种情况只能用resultMap-->
+ 	 <select id="getEmpAndDept" resultMap="MyDifEmp">
+ 	 	select * from tbl_employee e,tbl_dept d where e.d_id=d.id and e.id=#{id}
+ 	 </select>
+ 	 
+ 	 <!-- 不使用级联属性还可以用下面的方法
+ 	 <resultMap type="com.atguigu.mybatis.bean.Employee" id="MyDifEmp">
+ 	<id column="id" property="id"/>
+ 	<result column="last_name" property="lastName"/>
+ 	<association property="dept" javaType="com.atguigu.mybatis.bean.Department">
+ 		<id column="d_id" property="id"/>
+ 		<result column="dept_name" property="departmentName">
+ 	
+ 	</association>
+ 	</resultMap>
+ 	 <select id="getEmpAndDept" resultMap="MyDifEmp">
+ 	 	select * from tbl_employee e,tbl_dept d where e.d_id=d.id and e.id=#{id}
+ 	 </select>
+ 	  -->
+ 	 
+ </mapper>
+

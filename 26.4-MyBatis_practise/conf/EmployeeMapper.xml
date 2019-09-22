@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <!-- 该文件是映射文件 -->
+ 
+<!-- <mapper namespace="com.atguigu.mybatis.dao.EmployeeMapper">
+
+namespace:名称空间;指定为接口的全类名
+id：唯一标识
+resultType：返回值类型
+#{id}：从传递过来的参数中取出id值
+
+public Employee getEmpById(Integer id);
+
+	<select id="getEmpById" resultType="com.atguigu.mybatis.bean.Employee">
+		select id,last_name lastName,email,gender from tbl_employee where id = #{id}
+	</select>
+</mapper> -->
+<mapper namespace="com.atguigu.mybatis.dao.EmployeeMapper">
+	<select id="getEmpById" resultType="com.atguigu.mybatis.bean.Employee"
+	>
+		<!-- select *from tbl_employee where id =#{id} -->
+		select id,last_name lastName,email,gender from tbl_employee where id = #{id}
+	</select>
+	
+	<!-- useGeneratedKeys="true使用自增主键获取主键值策略
+		keyProperty="id"指定对应的主键属性，也就是mybatis获取主键值以后，将这个值封装给javaBean的哪个属性
+	 -->
+	<insert id="addEmp" parameterType="com.atguigu.mybatis.bean.Employee"
+		useGeneratedKeys="true" keyProperty="id">
+	<!-- parameterType 是参数类型，可以不写 -->
+		insert into tbl_employee(last_name,email,gender)values(#{lastName},#{email},#{gender})
+	</insert>
+	<update id="updateEmp">
+		update tbl_employee set last_name=#{lastName},email=#{email},gender=#{gender}
+		where id=#{id}
+	</update>
+	<delete id="deleteEmpById">
+		delete from tbl_employee where id=#{id}
+	</delete>
+	
+	<select id="getEmpByIdAndLastName" resultType="com.atguigu.mybatis.bean.Employee">
+		<!-- select * from tbl_employee where id=#{param1} and last_name=#{param2} -->
+		select * from tbl_employee where id=#{id} and last_name=#{lastName}
+	</select>
+	<!-- 当返回类型为list时，resultType是list中元素的类型 -->
+	<select id="getEmpsByLastNameLike" resultType="com.atguigu.mybatis.bean.Employee">
+		select *from tbl_employee where last_name like #{lastName}
+	</select>
+	
+	<select id="getEmpsByIdReturnMap" resultType="map">
+		 select * from tbl_employee where id=#{id};
+	</select>
+	
+	<select id="getEmpsByLastNameLikeReturnMap" resultType="com.atguigu.mybatis.bean.Employee">
+		 select *from tbl_employee where last_name like #{lastName}
+	</select>
+	
+	
+	
+</mapper>

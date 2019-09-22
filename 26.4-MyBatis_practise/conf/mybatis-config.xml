@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+
+
+	<environments default="development"><!-- mybatis可以配置多种环境，default可以指定使用某种环境，可以快速切换 -->
+		<environment id="development">
+			<transactionManager type="JDBC" /><!-- 配置事务管理器 -->
+			<dataSource type="POOLED"><!-- 数据源，这些都是factory的别名 -->
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost:3306/mybatis" />
+				<property name="username" value="root" />
+				<property name="password" value="HANPENG-1998" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers><!-- 将sql映射注册到全局配置中 -->
+		<mapper resource="EmployeeMapper.xml" />
+		<mapper resource="EmployeeMapperPlus.xml"/>
+	</mappers>
+</configuration>
